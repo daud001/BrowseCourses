@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PlanDetail>
+
+@{
+    ViewBag.Title = "Plan Details";
+    Layout = "_AdminLayout";
+}
+
+@if (Model.Count() > 0) {
+
+    <table class="table table-bordered table-striped">
+        <tr><th>Name</th><th colspan="2">Details</th><th></th></tr>
+        @foreach (PlanDetail o in Model) {
+            <tr>
+                <td>@o.Name</td>
+                <td><strong>Courses</strong></td>
+
+                <th>Quantity</th>
+                                <td>
+                    <form asp-action="MarkCurrentPlan" method="post">
+                        <input type="hidden" name="planID" value="@o.PlanID" />
+                        @if (!o.Registered)
+                        {
+                            <button type="submit" class="btn btn-sm btn-danger"> Mark Current </button>
+                        }
+                        else {
+                        <button type="submit" class="btn btn-sm"> <b>&#9989; Current Plan </b> </button>
+                        }
+                    </form>
+                </td>
+            </tr>
+            @foreach (PlanLine line in o.Lines) 
+            {
+                <tr>
+                    <td colspan="1"></td>
+                    <td>@line.Course.CourseNumber </td><td>@line.Quantity</td>
+                </tr>
+
+            }
+        }
+        </table>
+} else {
+    <div class="text-center">No Registered Course</div>
+}

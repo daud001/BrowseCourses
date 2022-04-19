@@ -1,0 +1,30 @@
+﻿@model Plan
+
+<div class="">
+    @if (Model.Lines.Count() > 0) {
+        <small class="navbar-text">
+            <b>Your plan:</b>
+            @Model.Lines.Sum(x => x.Quantity) course(s), Total Credits:
+            @Model.ComputeTotalValue().ToString()
+        </small>
+        <br />
+    }
+    <a class="btn btn-sm btn-secondary navbar-btn"
+       asp-controller="Plan" asp-action="Index"
+       asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()">
+        <i class="fa fa-calendar-plus-o"></i>
+    </a>
+
+    <a class="btn btn-sm btn-secondary navbar-btn"
+       asp-controller="Admin" asp-action="Index"
+       asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()">
+        Manage Courses
+    </a>
+
+    <a class="btn btn-sm btn-secondary navbar-btn" 
+       asp-controller="PlanDetail" asp-action="List"
+       asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()">
+       Saved Plans
+    </a>
+
+</div>
